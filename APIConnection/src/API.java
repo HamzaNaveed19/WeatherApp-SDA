@@ -3,6 +3,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Scanner;
 
@@ -12,16 +13,17 @@ import org.json.simple.parser.JSONParser;
 
 public class API
 {
-   static JSONObject weatherData;
-   static JSONObject currWeatherData;
+  private String locationName;
+  JSONObject weatherData=new JSONObject();
+  JSONObject currWeatherData=new JSONObject();
+
 
  API(String locationName){
-    weatherData=getWeatherData(locationName);
-    currWeatherData=getCurrWeatherData(locationName);
+    this.locationName=locationName;
     }
     
 
-public static JSONObject getWeatherData(String locationName){
+public JSONObject getWeatherData(){
 
     JSONObject locationData= getLocationData(locationName);
     double latitude=(double)locationData.get("latitude");
@@ -61,7 +63,7 @@ catch(Exception e){
 return null;
 
 }
-public static JSONObject getCurrWeatherData(String locationName){
+public JSONObject getCurrWeatherData(){
 
     JSONObject locationData= getLocationData(locationName);
     double latitude=(double)locationData.get("latitude");
@@ -101,7 +103,11 @@ return null;
 
 }
 @SuppressWarnings("unchecked")
-public static JSONObject getFiveDayForecast() {
+public JSONObject getFiveDayForecast() {
+    if(weatherData.toString().equals("{}")){
+        weatherData=getWeatherData();
+    }
+
     JSONObject forecastData = new JSONObject();
     JSONArray forecastList = new JSONArray();
 
@@ -133,62 +139,12 @@ public static JSONObject getFiveDayForecast() {
 
     return forecastData;
 }
-public static long getCurrentHumidity() {
-
-        JSONObject mainObject =(JSONObject) currWeatherData.get("main");
-        return  (long)mainObject.get("humidity");
-    }
-public static double getCurrentTemperature() {
-    
-    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
-    double temperature=(double) mainObject.get("temp");
-    return (int)(temperature-273);
-}
-public static double getMinimumTemperature() {
-    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
-    double temperature=(double) mainObject.get("temp_min");
-    return (int)(temperature-273);
-}
-public static double getMaximumTemperature() {
-    
-    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
-    double temperature=(double) mainObject.get("temp_max");
-    return (int)(temperature-273);
-}
-public static long getSunriseTime() {
-    
-    JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
-    return (long)sysObject.get("sunrise");
-}
-
-public static LocalDateTime getSunsetTime() {
-    
-    
-           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
-            long sunsetUnixTimestamp =(long) sysObject.get("sunset");
-            
-            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
-            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
-
-}
-
-public static String getWeatherDescription() {
-
-    JSONArray weatherArray = (JSONArray) currWeatherData.get("weather");
-    JSONObject weatherObject = (JSONObject)weatherArray.get(0);
-    return (String)weatherObject.get("description");
-}
-
-public static double getFeelsLikeTemperature() {
-    
-    JSONObject mainObject = (JSONObject) currWeatherData.get("main");
-    return (double)mainObject.get("feels_like");
-}
-
 @SuppressWarnings("unchecked")
-public static JSONObject getThreeHourlyForecast() {
+public JSONObject getThreeHourlyForecast(String locationName) {
     
-
+    if(weatherData.toString().equals("{}")){
+        weatherData=getWeatherData();
+    }
     JSONObject forecastData = new JSONObject();
     JSONArray forecastList = new JSONArray();
 
@@ -198,41 +154,116 @@ public static JSONObject getThreeHourlyForecast() {
     for (int i = 0; i < 8; i++) {
         JSONObject threeHourData = (JSONObject) list.get(i);
 
-        // Extracting date and time
         String dateTimeString = (String) threeHourData.get("dt_txt");
 
       
-            // Extracting temperature
             JSONObject main = (JSONObject) threeHourData.get("main");
             double temperature = (double) main.get("temp");
             temperature=(int)(temperature-273.15);
 
 
-            // Extracting humidity
             long humidity = (long) main.get("humidity");
 
  
 
-            // Create JSON object for the forecast
             JSONObject hourlyForecast = new JSONObject();
             hourlyForecast.put("date_time", dateTimeString);
             hourlyForecast.put("temperature", temperature);
             hourlyForecast.put("humidity", humidity);
 
-            // Add forecast to the list
             forecastList.add(hourlyForecast);
         
     }
 
-    // Add forecast list to the main JSON object
     forecastData.put("forecast", forecastList);
 
     return forecastData;
 }
+public long getCurrentHumidity() {
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+        JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+        return  (long)mainObject.get("humidity");
+    }
+public double getCurrentTemperature() {
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+    double temperature=(double) mainObject.get("temp");
+    return (int)(temperature-273);
+}
+public double getMinimumTemperature() {
+
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+    double temperature=(double) mainObject.get("temp_min");
+    return (int)(temperature-273);
+}
+public double getMaximumTemperature() {
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+    double temperature=(double) mainObject.get("temp_max");
+    return (int)(temperature-273);
+}
+public LocalDateTime getSunriseTime() {
+    
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
+            long sunsetUnixTimestamp =(long) sysObject.get("sunrise");
+            
+            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
+            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
+
+}
+
+public LocalDateTime getSunsetTime() {
+    
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
+            long sunsetUnixTimestamp =(long) sysObject.get("sunset");
+            
+            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
+            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
+
+}
+
+public String getWeatherDescription() {
+
+    JSONArray weatherArray = (JSONArray) currWeatherData.get("weather");
+    JSONObject weatherObject = (JSONObject)weatherArray.get(0);
+    return (String)weatherObject.get("description");
+}
+
+public double getFeelsLikeTemperature() {
+    
+    JSONObject mainObject = (JSONObject) currWeatherData.get("main");
+    return (double)mainObject.get("feels_like");
+}
 
 
 
-public static JSONObject getLocationData(String locationName){
+
+
+public JSONObject getLocationData(String locationName){
     locationName=locationName.replaceAll(" ","+");
 String urlString="https://geocoding-api.open-meteo.com/v1/search?name="+ locationName + "&count=10&language=en&format=json";
       try{
@@ -269,21 +300,17 @@ return null;
 }
 private static HttpURLConnection fetchAPIResponse(String urlString){
         try{
-            // attempt to create connection
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            // set request method to get
             conn.setRequestMethod("GET");
 
-            // connect to our API
             conn.connect();
             return conn;
         }catch(IOException e){
             e.printStackTrace();
         }
 
-        // could not make connection
         return null;
     }
     public static void main( String[] args )
@@ -292,12 +319,9 @@ private static HttpURLConnection fetchAPIResponse(String urlString){
         System.out.println( "Enter Your City Name: " );
         String locationName = scanner.nextLine();
         API myApp=new API(locationName);
-        System.out.println(myApp.getSunsetTime());
+        System.out.println(myApp.getSunriseTime());
 
         scanner.close();
-
-      
-
     }
 
 }
