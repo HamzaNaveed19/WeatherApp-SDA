@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="anchor-pane" stylesheets="@animation.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainSceneController"> <!--950,1690-->
+   <children>
+      <ImageView fx:id="backGroundPic" styleClass="backGroundPic">
+         <image>
+            <Image url="@nightPic.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="time" layoutX="188.88" layoutY="122.56" prefHeight="37.0" prefWidth="239.0" style="-fx-font-family: work sans; -fx-font-weight: bold;" text="MON,MARCH 4,2024" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT Bold" size="21.0" />
+         </font>
+      </Label>
+      <Line id="headerLine" fx:id="headerLine" endX="1345.0" fill="#ffffff40" layoutX="175.0" layoutY="181.0" stroke="#ffffff80" strokeWidth="2.0" />
+      <Label id="locationLabel" fx:id="locationLabel" layoutX="189.0" layoutY="68.0" prefHeight="73.0" prefWidth="398.0" style="-fx-font-family: work sans; -fx-font-weight: bold; -fx-font-size: 40;" stylesheets="@animation.css" text="Lahore" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT Bold" size="48.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="searchRect" arcHeight="20.0" arcWidth="20.0" fill="#ffffff25" height="58.96" layoutX="953.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="553.16" />
+      <Label fx:id="temperatureLabel" alignment="BOTTOM_LEFT" layoutX="147.0" layoutY="446.0" prefHeight="163.0" prefWidth="209.0" style="-fx-font-family: work sans; -fx-font-weight: bold;" stylesheets="@animation.css" text="20°" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT Bold" size="96.0" />
+         </font>
+      </Label>
+      <Label fx:id="feelLabel" layoutX="348.0" layoutY="520.0" prefHeight="75.0" prefWidth="239.0" style="-fx-font-family: work sans; -fx-font-size: 52; -fx-font-weight: bold;" text="Feels like " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textfieldLocation" layoutX="997.85" layoutY="89.72" prefHeight="33.0" prefWidth="248.0" promptText="Add Location" stylesheets="@animation.css">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Button fx:id="searchButton" layoutX="1379.0" layoutY="89.0" mnemonicParsing="false" onAction="#enterButtonClicked" prefHeight="25.0" prefWidth="110.0" stylesheets="@animation.css" text="Search" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="feelTemp" layoutX="580.0" layoutY="520.0" prefHeight="75.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 52; -fx-font-weight: bold;" text="22°" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button id="gasesButton" fx:id="gasesButton" layoutX="1045.0" layoutY="534.0" minWidth="48.0" mnemonicParsing="false" onAction="#enterGases" prefHeight="50.0" prefWidth="48.0" styleClass="button-gasesButton" stylesheets="@animation.css" textFill="TRANSPARENT" />
+      <Group id="gasesTable" fx:id="gasesTable" layoutX="761.0" layoutY="227.0" visible="false">
+         <children>
+            <Rectangle id="pollutingRect" fx:id="pollutingRect" arcHeight="20.0" arcWidth="20.0" fill="#ffffff27" height="265.0" layoutX="-134.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="307.0" />
+            <Label layoutX="-45.0" layoutY="-4.0" prefHeight="33.0" prefWidth="142.0" style="-fx-font-family: work sans; -fx-font-size: 19;" text="Polluting Gases" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="-84.0" layoutY="43.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="-85.0" layoutY="73.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="-85.0" layoutY="104.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="-84.0" layoutY="135.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="-84.0" layoutY="167.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="-84.0" layoutY="198.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="46.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="73.0" layoutY="76.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="73.0" layoutY="107.0" prefHeight="26.0" prefWidth="52.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="138.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="170.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="201.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <CubicCurve id="triRect" fx:id="triRect" controlX1="-89.25" controlX2="-98.25" controlY1="-28.999996185302734" controlY2="-29.0" endX="-80.75" endY="-14.6666259765625" fill="#ffffff26" layoutX="238.0" layoutY="280.0" rotate="180.0" startX="-108.5" startY="-14.6666259765625" stroke="BLACK" strokeWidth="0.0" />
+         </children>
+      </Group>
+      <Rectangle id="maxminRect" fx:id="maxminRect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff26" height="108.0" layoutX="126.0" layoutY="614.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="176.0" />
+      <Rectangle id="forcastRect" fx:id="forcastRect" arcHeight="15.0" arcWidth="15.0" fill="#ffffff26" height="385.0" layoutX="1213.0" layoutY="448.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="381.0" />
+      <Rectangle id="stampRect" fx:id="stampRect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff26" height="107.36" layoutX="125.96" layoutY="723.28" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="709.28" />
+      <Rectangle id="riseRect" fx:id="riseRect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff26" height="53.84" layoutX="481.0" layoutY="614.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="355.0" />
+      <Label layoutX="216.0" layoutY="650.0" prefHeight="39.0" prefWidth="24.0" text="30" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="253.0" layoutY="649.0" prefHeight="39.0" prefWidth="27.0" text="40" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT Bold" size="21.0" />
+         </font>
+      </Label>
+      <Rectangle id="humidityRect" fx:id="humidityRect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff26" height="108.0" layoutX="302.8" layoutY="614.15" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="176.84" />
+      <Rectangle id="setRect" fx:id="setRect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff26" height="53.0" layoutX="481.0" layoutY="669.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="355.0" />
+      <Label layoutX="386.0" layoutY="646.0" prefHeight="39.0" prefWidth="64.0" text="80 %" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT Bold" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="245.0" layoutY="653.0" text="/" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="610.84" layoutY="626.0" prefHeight="34.0" prefWidth="117.0" style="-fx-font-family: work sans;" text="06:40 am" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="610.0" layoutY="678.0" prefHeight="34.0" prefWidth="117.0" style="-fx-font-family: work sans;" text="07:40 pm" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="215.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="285.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="355.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="425.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="495.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="565.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="635.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Label graphicTextGap="6.0" layoutX="705.0" layoutY="735.0" prefHeight="31.0" prefWidth="40.0" text="12°" textFill="WHITE" />
+      <Line endX="431.0" fill="WHITE" layoutX="285.0" layoutY="775.0" startX="-59.66667175292969" stroke="WHITE" strokeDashOffset="88.0" strokeMiterLimit="80.0" style="-fx-stroke-dash-array: 2;" />
+      <Circle fill="#ffd31f" layoutX="574.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="504.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="224.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="294.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="364.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="434.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="644.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#ffd31f" layoutX="714.0" layoutY="775.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Label graphicTextGap="6.0" layoutX="214.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="284.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="354.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="424.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="494.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="564.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="634.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="704.0" layoutY="784.0" prefHeight="31.0" prefWidth="40.0" text="3pm" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="map" arcHeight="20.0" arcWidth="20.0" height="190.0" layoutX="1213.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="381.0" />
+      <Label layoutX="1253.0" layoutY="568.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1472.0" layoutY="568.0" prefHeight="26.0" prefWidth="27.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1472.0" layoutY="618.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1472.0" layoutY="668.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1472.0" layoutY="718.0" prefHeight="26.0" prefWidth="36.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1472.0" layoutY="768.0" prefHeight="26.0" prefWidth="36.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1537.0" layoutY="568.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1537.0" layoutY="618.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1537.0" layoutY="668.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1537.0" layoutY="718.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1537.0" layoutY="768.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1253.0" layoutY="618.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1253.0" layoutY="668.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1253.0" layoutY="718.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1253.0" layoutY="768.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1253.0" layoutY="524.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 15;" text="Date" textFill="#ffffffb3">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1472.0" layoutY="524.0" prefHeight="26.0" prefWidth="36.0" style="-fx-font-family: work sans; -fx-font-size: 15;" text="Min" textFill="#ffffffb3">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1535.0" layoutY="525.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 15;" text="Max" textFill="#ffffffb3">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="1253.0" layoutY="475.0" prefHeight="36.0" prefWidth="96.0" style="-fx-font-family: work sans; -fx-font-size: 25;" text="Forcast" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="dayRect" arcHeight="20.0" arcWidth="20.0" fill="#0000007f" height="32.0" layoutX="1506.0" layoutY="475.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+      <Label layoutX="1519.0" layoutY="476.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 11;" text="5 days" textFill="#ffffffb3">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Region fx:id="weatherRect" layoutX="837.0" layoutY="613.61" prefHeight="218.0" prefWidth="270.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 0 10 10 0;" />
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</AnchorPane>
