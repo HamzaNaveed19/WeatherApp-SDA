@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 
 public class App extends Application {
     
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        double Percentage_Of_Used_Screen=0.90;
         Screen screen = Screen.getPrimary();
 
         // Get the bounds of the primary screen
@@ -28,12 +30,16 @@ public class App extends Application {
         // Set the scene to the stage
         primaryStage.setScene(scene);
         
+        // Add custom CSS for styling the title bar
+        scene.getStylesheets().add(getClass().getResource("animation.css").toExternalForm());
+        
         // Settings
         primaryStage.setTitle("Weather App");
-        primaryStage.setWidth(screenWidth*0.90);
-        primaryStage.setHeight(screenHeight* 0.90);
+        primaryStage.setWidth(screenWidth * Percentage_Of_Used_Screen);
+        primaryStage.setHeight(screenHeight * Percentage_Of_Used_Screen);
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);
+
 
         // Show the stage
         primaryStage.show();
