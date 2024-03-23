@@ -1,32 +1,37 @@
-package saif;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-/**
- * Hello world!
- *
- */
-public class App 
+
+public class API
 {
+  private String locationName;
+  JSONObject weatherData=new JSONObject();
+  JSONObject currWeatherData=new JSONObject();
+  JSONObject locationData=new JSONObject();
+  JSONObject pollutantData=new JSONObject();
 
-/**
- * @param locationName
- * @return
- */
-public static JSONObject getWeatherData(String locationName){
 
-    JSONObject locationData= getLocationData(locationName);
+ API(String locationName){
+    this.locationName=locationName;
+    }
+    
+
+public JSONObject getWeatherData(){
+if(locationData.toString().equals("{}")){
+    locationData= getLocationData(locationName);
+}
     double latitude=(double)locationData.get("latitude");
     double longitude=(double)locationData.get("longitude");
+
     String apiKey="7d888618e8c1a5f4afaead050a345b88";
 
     String apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
@@ -61,7 +66,7 @@ catch(Exception e){
 return null;
 
 }
-public static JSONObject getCurrWeatherData(String locationName){
+public JSONObject getCurrWeatherData(){
 
     JSONObject locationData= getLocationData(locationName);
     double latitude=(double)locationData.get("latitude");
@@ -100,149 +105,210 @@ catch(Exception e){
 return null;
 
 }
+public JSONObject getPollutantData(){
+    
+    if(locationData.toString().equals("{}")){
+        locationData= getLocationData(locationName);
+    }
+        double latitude=(double)locationData.get("latitude");
+        double longitude=(double)locationData.get("longitude");
+    
+        String apiKey="7d888618e8c1a5f4afaead050a345b88";
+    
+        String apiUrl = "http://api.openweathermap.org/data/2.5/air_pollution?lat="+latitude+"&lon="+longitude+"&appid="+apiKey;
+        
+        try{
+            HttpURLConnection conn=fetchAPIResponse(apiUrl);
+            
+            if(conn.getResponseCode() != 200){
+                System.out.println("Error: Could not connect to API");
+                return null;
+            }
+        
+            StringBuilder resultJson = new StringBuilder();
+            Scanner scanner = new Scanner(conn.getInputStream());
+                    while(scanner.hasNext()){
+                        resultJson.append(scanner.nextLine());
+                    }
+        
+                    scanner.close();
+        
+                    conn.disconnect();
+            JSONParser parser = new JSONParser();
+            JSONObject resultJsonObj = (JSONObject) parser.parse(String.valueOf(resultJson));
+        
+        
+             return resultJsonObj;
+        }
+        catch(Exception e){
+             e.printStackTrace();
+        }
+        
+        return null;
+}
 @SuppressWarnings("unchecked")
-public static JSONObject getFiveDayForecast(String locationName) {
-    JSONObject jsonObject=getWeatherData(locationName);
+public JSONObject getFiveDayForecast() {
+    if(weatherData.toString().equals("{}")){
+        weatherData=getWeatherData();
+    }
+
     JSONObject forecastData = new JSONObject();
     JSONArray forecastList = new JSONArray();
 
-    JSONArray list = (JSONArray) jsonObject.get("list");
+    JSONArray list = (JSONArray) weatherData.get("list");
 
     for (int i = 0; i < list.size(); i += 8) {
-        JSONObject weatherData = (JSONObject) list.get(i);
+        JSONObject fiveDayData = (JSONObject) list.get(i);
 
-        // Extracting date
-        String date = (String) weatherData.get("dt_txt").toString().substring(0, 10);
+        String date = (String) fiveDayData.get("dt_txt").toString().substring(0, 10);
 
-        // Extracting temperature
-        JSONObject main = (JSONObject) weatherData.get("main");
+        JSONObject main = (JSONObject) fiveDayData.get("main");
         double temperature = (double) main.get("temp");
         temperature=(temperature-273);
 
-        // Extracting humidity
         long humidity = (long) main.get("humidity");
 
-        // Extracting feels like temperature
         double feelsLike = (double) main.get("feels_like");
 
-        // Create JSON object for the day's forecast
         JSONObject dayForecast = new JSONObject();
         dayForecast.put("date", date);
         dayForecast.put("temperature", temperature);
         dayForecast.put("humidity", humidity);
         dayForecast.put("feels_like", feelsLike);
 
-        // Add day's forecast to the list
-        forecastList.add(dayForecast);
+      forecastList.add(dayForecast);
     }
 
-    // Add forecast list to the main JSON object
-    forecastData.put("forecast", forecastList);
+  forecastData.put("forecast", forecastList);
 
     return forecastData;
 }
-public static long getCurrentHumidity(String locationName) {
-
-        JSONObject jsonObject = getCurrWeatherData(locationName);
-        JSONObject mainObject =(JSONObject) jsonObject.get("main");
-        return  (long)mainObject.get("humidity");
-    }
-public static double getCurrentTemperature(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONObject mainObject =(JSONObject) jsonObject.get("main");
-    double temperature=(double) mainObject.get("temp");
-    return (int)(temperature-273);
-}
-public static double getMinimumTemperature(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONObject mainObject =(JSONObject) jsonObject.get("main");
-    double temperature=(double) mainObject.get("temp_min");
-    return (int)(temperature-273);
-}
-public static double getMaximumTemperature(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONObject mainObject =(JSONObject) jsonObject.get("main");
-    double temperature=(double) mainObject.get("temp_max");
-    return (int)(temperature-273);
-}
-public static long getSunriseTime(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONObject sysObject = (JSONObject) jsonObject.get("sys");
-    return (long)sysObject.get("sunrise");
-}
-
-public static long getSunsetTime(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONObject sysObject =(JSONObject) jsonObject.get("sys");
-    return (long)sysObject.get("sunset");
-}
-
-public static String getWeatherDescription(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONArray weatherArray = (JSONArray)jsonObject.get("weather");
-    JSONObject weatherObject = (JSONObject)weatherArray.get(0);
-    return (String)weatherObject.get("description");
-}
-
-public static double getFeelsLikeTemperature(String locationName) {
-    JSONObject jsonObject = getCurrWeatherData(locationName);
-    JSONObject mainObject = (JSONObject)jsonObject.get("main");
-    return (double)mainObject.get("feels_like");
-}
-
 @SuppressWarnings("unchecked")
-public static JSONObject getThreeHourlyForecast(String locationName) {
-    JSONObject jsonObject =getWeatherData(locationName);
-
+public JSONObject getThreeHourlyForecast(String locationName) {
+    
+    if(weatherData.toString().equals("{}")){
+        weatherData=getWeatherData();
+    }
     JSONObject forecastData = new JSONObject();
     JSONArray forecastList = new JSONArray();
 
-    JSONArray list = (JSONArray) jsonObject.get("list");
+    JSONArray list = (JSONArray) weatherData.get("list");
     
 
     for (int i = 0; i < 8; i++) {
-        JSONObject weatherData = (JSONObject) list.get(i);
+        JSONObject threeHourData = (JSONObject) list.get(i);
 
-        // Extracting date and time
-        String dateTimeString = (String) weatherData.get("dt_txt");
+        String dateTimeString = (String) threeHourData.get("dt_txt");
 
       
-            // Extracting temperature
-            JSONObject main = (JSONObject) weatherData.get("main");
+            JSONObject main = (JSONObject) threeHourData.get("main");
             double temperature = (double) main.get("temp");
             temperature=(int)(temperature-273.15);
 
 
-            // Extracting humidity
             long humidity = (long) main.get("humidity");
 
  
 
-            // Create JSON object for the forecast
             JSONObject hourlyForecast = new JSONObject();
             hourlyForecast.put("date_time", dateTimeString);
             hourlyForecast.put("temperature", temperature);
             hourlyForecast.put("humidity", humidity);
 
-            // Add forecast to the list
             forecastList.add(hourlyForecast);
         
     }
 
-    // Add forecast list to the main JSON object
     forecastData.put("forecast", forecastList);
 
     return forecastData;
 }
+public long getCurrentHumidity() {
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+        JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+        return  (long)mainObject.get("humidity");
+    }
+public double getCurrentTemperature() {
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
 
+    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+    double temperature=(double) mainObject.get("temp");
+    return (int)(temperature-273);
+}
+public double getMinimumTemperature() {
 
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
 
-public static JSONObject getLocationData(String locationName){
+    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+    double temperature=(double) mainObject.get("temp_min");
+    return (int)(temperature-273);
+}
+public double getMaximumTemperature() {
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+    JSONObject mainObject =(JSONObject) currWeatherData.get("main");
+    double temperature=(double) mainObject.get("temp_max");
+    return (int)(temperature-273);
+}
+public LocalDateTime getSunriseTime() {
+    
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
+            long sunsetUnixTimestamp =(long) sysObject.get("sunrise");
+            
+            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
+            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
+
+}
+
+public LocalDateTime getSunsetTime() {
+    
+    
+    if(currWeatherData.toString().equals("{}")){
+        currWeatherData=getCurrWeatherData();
+    }
+
+           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
+            long sunsetUnixTimestamp =(long) sysObject.get("sunset");
+            
+            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
+            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
+
+}
+
+public String getWeatherDescription() {
+
+    JSONArray weatherArray = (JSONArray) currWeatherData.get("weather");
+    JSONObject weatherObject = (JSONObject)weatherArray.get(0);
+    return (String)weatherObject.get("description");
+}
+
+public double getFeelsLikeTemperature() {
+    
+    JSONObject mainObject = (JSONObject) currWeatherData.get("main");
+    return (double)mainObject.get("feels_like");
+}
+
+public JSONObject getLocationData(String locationName){
     locationName=locationName.replaceAll(" ","+");
 String urlString="https://geocoding-api.open-meteo.com/v1/search?name="+ locationName + "&count=10&language=en&format=json";
       try{
           HttpURLConnection conn=fetchAPIResponse(urlString);
-          if(conn.getResponseCode()!=200){
+          if(conn.getResponseCode() != 200){
             System.err.println("Error : Could Not Connect To API ");
             return null;
           }
@@ -272,23 +338,47 @@ String urlString="https://geocoding-api.open-meteo.com/v1/search?name="+ locatio
 return null;
 
 }
+
+public JSONObject getComponentGasses(){
+
+    if(pollutantData.toString().equals("{}")){
+        pollutantData=getPollutantData();
+    }
+
+    JSONArray list =(JSONArray) pollutantData.get("list");
+    JSONObject data=(JSONObject) list.get(0);
+    JSONObject components=(JSONObject) data.get("components");
+
+    return components;
+}
+
+public long getAQI(){
+
+    if(pollutantData.toString().equals("{}")){
+        pollutantData=getPollutantData();
+    }
+
+    JSONArray listArray =(JSONArray) pollutantData.get("list");
+    JSONObject firstItem =(JSONObject) listArray.get(0);
+    JSONObject mainObject =(JSONObject) firstItem.get("main");
+    long aqi =(long) mainObject.get("aqi");
+
+    return aqi;
+}
+
 private static HttpURLConnection fetchAPIResponse(String urlString){
         try{
-            // attempt to create connection
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            // set request method to get
             conn.setRequestMethod("GET");
 
-            // connect to our API
             conn.connect();
             return conn;
         }catch(IOException e){
             e.printStackTrace();
         }
 
-        // could not make connection
         return null;
     }
     public static void main( String[] args )
@@ -296,14 +386,8 @@ private static HttpURLConnection fetchAPIResponse(String urlString){
         Scanner scanner = new Scanner(System.in);
         System.out.println( "Enter Your City Name: " );
         String locationName = scanner.nextLine();
-       JSONObject weather= App.getWeatherData(locationName);
-
-        scanner.close();
-
-        System.out.println(App.getMaximumTemperature(locationName));
-        System.out.println(App.getMinimumTemperature(locationName));
-
-
+        API myApp=new API(locationName);
+        System.out.println(myApp.getAQI());
     }
 
 }
