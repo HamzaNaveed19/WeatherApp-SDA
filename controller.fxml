@@ -15,9 +15,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="anchor-pane" stylesheets="@animation.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainSceneController"> <!--950,1690-->
+<AnchorPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="1690.0" styleClass="anchor-pane" stylesheets="@animation.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainSceneController"> <!--950,1690-->
    <children>
-      <ImageView fx:id="backGroundPic" styleClass="backGroundPic">
+      <ImageView fx:id="backGroundPic" fitHeight="954.0" fitWidth="1692.0" styleClass="backGroundPic">
          <image>
             <Image url="@nightPic.jpg" />
          </image>
@@ -33,8 +33,8 @@
             <Font name="Gill Sans MT Bold" size="44.0" />
          </font>
       </Label>
-      <Rectangle fx:id="searchRect" arcHeight="20.0" arcWidth="20.0" fill="#ffffff25" height="58.96" layoutX="953.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="553.16" />
-      <Label fx:id="temperatureLabel" alignment="TOP_CENTER" centerShape="false" contentDisplay="TEXT_ONLY" ellipsisString="" graphicTextGap="0.0" layoutX="119.0" layoutY="439.0" prefHeight="193.0" prefWidth="214.0" style="-fx-font-family: work sans;" text="20°" textFill="WHITE">
+      <Rectangle fx:id="searchRect" arcHeight="10.0" arcWidth="10.0" fill="#ffffff25" height="58.96" layoutX="953.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="553.16" />
+      <Label fx:id="temperatureLabel" alignment="TOP_CENTER" centerShape="false" contentDisplay="TEXT_ONLY" ellipsisString="" graphicTextGap="0.0" layoutX="123.0" layoutY="439.0" prefHeight="193.0" prefWidth="214.0" style="-fx-font-family: work sans;" text="20°" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT Bold" size="132.0" />
          </font>
@@ -45,83 +45,6 @@
          </font>
       </Label>
       <TextField fx:id="textfieldLocation" layoutX="987.0" layoutY="94.0" prefHeight="10.0" prefWidth="248.0" promptText="Add Location" />
-      <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1379.0" layoutY="85.0" mnemonicParsing="false" onAction="#enterButtonClicked" prefHeight="59.0" prefWidth="131.0" stylesheets="@animation.css" textFill="WHITE">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
-      <Button id="gasesButton" fx:id="gasesButton" layoutX="1045.0" layoutY="534.0" minWidth="48.0" mnemonicParsing="false" onAction="#enterGases" prefHeight="50.0" prefWidth="48.0" styleClass="button-gasesButton" stylesheets="@animation.css" textFill="TRANSPARENT" />
-      <Group id="gasesTable" fx:id="gasesTable" layoutX="761.0" layoutY="227.0" visible="false">
-         <children>
-            <Rectangle id="pollutingRect" fx:id="pollutingRect" arcHeight="20.0" arcWidth="20.0" fill="#ffffff27" height="265.0" layoutX="-134.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="307.0" />
-            <Label layoutX="-45.0" layoutY="-4.0" prefHeight="33.0" prefWidth="142.0" style="-fx-font-family: work sans; -fx-font-size: 19;" text="Polluting Gases" textFill="WHITE">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <Label layoutX="-84.0" layoutY="43.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="-85.0" layoutY="73.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="-85.0" layoutY="104.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="-84.0" layoutY="135.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="-84.0" layoutY="167.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="-84.0" layoutY="198.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="Oxygen " textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="74.0" layoutY="46.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="73.0" layoutY="76.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="73.0" layoutY="107.0" prefHeight="26.0" prefWidth="52.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="74.0" layoutY="138.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="74.0" layoutY="170.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="74.0" layoutY="201.0" prefHeight="18.0" prefWidth="82.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="50%" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <CubicCurve id="triRect" fx:id="triRect" controlX1="-89.25" controlX2="-98.25" controlY1="-28.999996185302734" controlY2="-29.0" endX="-80.75" endY="-14.6666259765625" fill="#ffffff26" layoutX="238.0" layoutY="280.0" rotate="180.0" startX="-108.5" startY="-14.6666259765625" stroke="BLACK" strokeWidth="0.0" />
-         </children>
-      </Group>
       <Rectangle id="forcastRect" fx:id="forcastRect" arcHeight="20.0" arcWidth="20.0" fill="#ffffff26" height="385.0" layoutX="1213.0" layoutY="448.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="381.0" />
       <Rectangle id="riseRect" fx:id="riseRect" fill="#ffffff24" height="53.84" layoutX="481.0" layoutY="614.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="355.0" />
       <Label fx:id="minmaxtxt" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="215.0" layoutY="655.0" prefHeight="20.0" prefWidth="72.0" text=" 30 - 40" textFill="WHITE">
@@ -131,7 +54,7 @@
       </Label>
       <Rectangle id="humidityRect" fx:id="humidityRect" fill="#ffffff24" height="108.0" layoutX="302.8" layoutY="614.15" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="176.84" />
       <Rectangle id="setRect" fx:id="setRect" fill="#ffffff24" height="53.0" layoutX="481.0" layoutY="669.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="355.0" />
-      <Label fx:id="humiditytxt" alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" ellipsisString="" graphicTextGap="0.0" layoutX="382.0" layoutY="634.0" prefHeight="44.0" prefWidth="96.0" text="80%" textFill="WHITE">
+      <Label fx:id="humiditytxt" alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" ellipsisString="" graphicTextGap="0.0" layoutX="381.0" layoutY="634.0" prefHeight="44.0" prefWidth="96.0" text="80%" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="44.0" />
          </font>
@@ -146,35 +69,35 @@
             <Font size="22.0" />
          </font>
       </Label>
- <Label fx:id="h3_temp1" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="194.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+ <Label fx:id="h3_temp1" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="194.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp2" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="273.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp2" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="273.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp3" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="352.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp3" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="352.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp4" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="432.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp4" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="432.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp5" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="512.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp5" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="512.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp6" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="592.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp6" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="592.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp7" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="672.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp7" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="672.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
-      <Label fx:id="h3_temp8" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="752.0" layoutY="736.0" prefHeight="17.0" prefWidth="25.0" text="12°" textFill="WHITE">
+      <Label fx:id="h3_temp8" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="752.0" layoutY="736.0" prefHeight="17.0" prefWidth="35.0" text="12°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Label>
@@ -228,77 +151,77 @@
          </font>
       </Label>
       <Rectangle fx:id="map" arcHeight="20.0" arcWidth="20.0" height="190.0" layoutX="1213.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="381.0" />
-      <Label layoutX="1253.0" layoutY="568.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+      <Label fx:id="f_date1" layoutX="1253.0" layoutY="568.0" prefHeight="26.0" prefWidth="104.0" text="05, Mar, Tue" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1458.0" layoutY="568.0" prefHeight="26.0" prefWidth="27.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+      <Label fx:id="f_min1" layoutX="1458.0" layoutY="568.0" prefHeight="26.0" prefWidth="27.0" text="16°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1458.0" layoutY="618.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+      <Label fx:id="f_min2" layoutX="1458.0" layoutY="618.0" prefHeight="26.0" prefWidth="40.0" text="16°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1458.0" layoutY="668.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+      <Label fx:id="f_min3" layoutX="1458.0" layoutY="668.0" prefHeight="26.0" prefWidth="40.0" text="16°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1458.0" layoutY="718.0" prefHeight="26.0" prefWidth="36.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+      <Label fx:id="f_min4" layoutX="1458.0" layoutY="718.0" prefHeight="26.0" prefWidth="36.0" text="16°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1458.0" layoutY="768.0" prefHeight="26.0" prefWidth="36.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="16°" textFill="WHITE">
+      <Label fx:id="f_min5" layoutX="1458.0" layoutY="768.0" prefHeight="26.0" prefWidth="36.0" text="16°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1523.0" layoutY="568.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+      <Label fx:id="f_max1" layoutX="1523.0" layoutY="568.0" prefHeight="26.0" prefWidth="40.0" text="21°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1523.0" layoutY="618.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+      <Label fx:id="f_max2" layoutX="1523.0" layoutY="618.0" prefHeight="26.0" prefWidth="40.0" text="21°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1523.0" layoutY="668.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+      <Label fx:id="f_max3" layoutX="1523.0" layoutY="668.0" prefHeight="26.0" prefWidth="40.0" text="21°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1523.0" layoutY="718.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+      <Label fx:id="f_max4" layoutX="1523.0" layoutY="718.0" prefHeight="26.0" prefWidth="40.0" text="21°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1523.0" layoutY="768.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="21°" textFill="WHITE">
+      <Label fx:id="f_max5" layoutX="1523.0" layoutY="768.0" prefHeight="26.0" prefWidth="40.0" text="21°" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1253.0" layoutY="618.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+      <Label fx:id="f_date2" layoutX="1253.0" layoutY="618.0" prefHeight="26.0" prefWidth="104.0" text="05, Mar, Tue" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1253.0" layoutY="668.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+      <Label fx:id="f_date3" layoutX="1253.0" layoutY="668.0" prefHeight="26.0" prefWidth="104.0" text="05, Mar, Tue" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1253.0" layoutY="718.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+      <Label fx:id="f_date4" layoutX="1253.0" layoutY="718.0" prefHeight="26.0" prefWidth="104.0" text="05, Mar, Tue" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1253.0" layoutY="768.0" prefHeight="26.0" prefWidth="104.0" style="-fx-font-family: work sans; -fx-font-size: 17;" text="05, Mar, Tue" textFill="WHITE">
+      <Label fx:id="f_date5" layoutX="1253.0" layoutY="768.0" prefHeight="26.0" prefWidth="104.0" text="05, Mar, Tue" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
@@ -324,9 +247,9 @@
          </font>
       </Label>
       <Rectangle fx:id="dayRect" arcHeight="20.0" arcWidth="20.0" fill="#0000007f" height="32.0" layoutX="1506.0" layoutY="477.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-      <Label layoutX="1519.0" layoutY="478.0" prefHeight="26.0" prefWidth="40.0" style="-fx-font-family: work sans; -fx-font-size: 11;" text="5 days" textFill="#ffffffb3">
+      <Label fx:id="fivedaytxt" alignment="BASELINE_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="1521.0" layoutY="483.0" prefHeight="12.0" prefWidth="50.0" style="-fx-font-family: work sans;" text="5 days" textFill="#ffffff80">
          <font>
-            <Font size="17.0" />
+            <Font size="11.0" />
          </font>
       </Label>
       <Region fx:id="stampRect" layoutX="126.0" layoutY="723.0" prefHeight="107.0" prefWidth="709.28" style="-fx-background-color: rgb(255,255,255,0.15); -fx-background-radius: 0 0 0 10;" />
@@ -342,6 +265,155 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
+      <ImageView fx:id="humidityIcon" fitHeight="81.0" fitWidth="84.0" layoutX="305.0" layoutY="624.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image1.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="minmaxIcon" fitHeight="47.0" fitWidth="48.0" layoutX="160.0" layoutY="643.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@image2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sunriseIcon" fitHeight="34.0" fitWidth="54.0" layoutX="527.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sunsetIcon" fitHeight="32.0" fitWidth="45.0" layoutX="527.0" layoutY="676.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="locationIcon" fitHeight="54.0" fitWidth="52.0" layoutX="125.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image6.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="searchbuttonrect" arcHeight="10.0" arcWidth="10.0" fill="#0000007f" height="33.0" layoutX="1379.0" layoutY="98.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0" />
+      <Label fx:id="searchtxt" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="1415.0" layoutY="104.0" prefHeight="20.0" prefWidth="54.0" text="Search" textFill="#ffffff80" />
+      <Group id="gasesTable" fx:id="gasesTable" layoutX="924.0" layoutY="222.0">
+         <children>
+            <Rectangle id="pollutingRect" fx:id="pollutingRect" arcHeight="20.0" arcWidth="20.0" fill="#ffffff33" height="297.0" layoutX="-133.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="318.0" />
+            <Label fx:id="pollutinggastxt" layoutX="-100.0" layoutY="15.0" prefHeight="39.0" prefWidth="152.0" style="-fx-font-family: work sans;" text="Polluting Gases" textFill="#ffffffcc">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d1" layoutX="-63.0" layoutY="76.0" prefHeight="18.0" prefWidth="82.0" text="CO" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d2" layoutX="19.0" layoutY="76.0" prefHeight="18.0" prefWidth="82.0" text="NO" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d3" layoutX="104.0" layoutY="76.0" prefHeight="18.0" prefWidth="82.0" text="SO2" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d4" layoutX="-61.0" layoutY="140.0" prefHeight="18.0" prefWidth="82.0" text="NO2" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d5" layoutX="18.0" layoutY="141.0" prefHeight="18.0" prefWidth="82.0" text="O3" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d6" layoutX="102.0" layoutY="140.0" prefHeight="18.0" prefWidth="82.0" text="PM 2.5" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p1" layoutX="-63.0" layoutY="94.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p2" layoutX="19.0" layoutY="94.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p3" layoutX="104.0" layoutY="91.0" prefHeight="26.0" prefWidth="52.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p4" layoutX="-61.0" layoutY="164.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p5" layoutX="20.0" layoutY="160.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p6" layoutX="102.0" layoutY="158.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <CubicCurve id="triRect" fx:id="triRect" controlX1="-89.25" controlX2="-99.0" controlY1="-28.999996185302734" controlY2="-30.0" endX="-80.75" endY="-14.6666259765625" fill="#ffffff26" layoutX="246.0" layoutY="325.0" rotate="180.0" startX="-108.5" startY="-14.666656494140625" stroke="BLACK" strokeWidth="0.0" />
+            <Label fx:id="air_d7" layoutX="-60.0" layoutY="211.0" prefHeight="18.0" prefWidth="82.0" text="PM 10" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p7" layoutX="-60.0" layoutY="239.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_d8" layoutX="22.0" layoutY="213.0" prefHeight="18.0" prefWidth="82.0" text="NH3" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="air_p8" layoutX="24.0" layoutY="240.0" prefHeight="18.0" prefWidth="82.0" text="50%" textFill="#ffffffcc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="coIcon" fitHeight="30.0" fitWidth="27.0" layoutX="-99.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@co.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <ImageView fx:id="gasesIcon" fitHeight="58.0" fitWidth="54.0" layoutX="1045.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image7.png" />
+         </image>
+      </ImageView>
+      <Button id="gasesButton" fx:id="gasesButton" layoutX="1045.0" layoutY="534.0" minWidth="48.0" mnemonicParsing="false" onAction="#enterGases" prefHeight="50.0" prefWidth="48.0" styleClass="button-gasesButton" stylesheets="@animation.css" textFill="TRANSPARENT" />
+      <Rectangle fx:id="FCrect" arcHeight="10.0" arcWidth="10.0" fill="#ffffff25" height="59.0" layoutX="1514.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
+      <Rectangle fx:id="FCrect1" arcHeight="10.0" arcWidth="10.0" fill="#ffffff33" height="37.0" layoutX="1524.0" layoutY="95.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+      <Rectangle fx:id="unitrect" arcHeight="10.0" arcWidth="10.0" fill="#0000007f" height="37.0" layoutX="1551.0" layoutY="95.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="33.0" />
+      <Rectangle fx:id="unitrect1" arcHeight="10.0" arcWidth="10.0" fill="#0000007f" height="37.0" layoutX="1524.0" layoutY="95.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="33.0" />
+      <Label fx:id="ftxt" alignment="BOTTOM_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="1564.0" layoutY="104.0" text="F">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="ctxt" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="1534.0" layoutY="103.0" text="C°" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1379.0" layoutY="85.0" mnemonicParsing="false" onAction="#enterButtonClicked" prefHeight="59.0" prefWidth="131.0" stylesheets="@animation.css" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Button fx:id="unitbutton" graphicTextGap="0.0" layoutX="1525.0" layoutY="93.0" mnemonicParsing="false" onAction="#changeUnit" prefHeight="39.0" prefWidth="60.0" textFill="WHITE" />
    </children>
    <opaqueInsets>
       <Insets />
