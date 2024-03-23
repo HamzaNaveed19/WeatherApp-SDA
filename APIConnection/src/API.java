@@ -16,6 +16,8 @@ public class API
   private String locationName;
   JSONObject weatherData=new JSONObject();
   JSONObject currWeatherData=new JSONObject();
+  JSONObject locationData=new JSONObject();
+  JSONObject pollutantData=new JSONObject();
 
 
  API(String locationName){
@@ -24,8 +26,9 @@ public class API
     
 
 public JSONObject getWeatherData(){
-
-    JSONObject locationData= getLocationData(locationName);
+if(locationData.toString().equals("{}")){
+    locationData= getLocationData(locationName);
+}
     double latitude=(double)locationData.get("latitude");
     double longitude=(double)locationData.get("longitude");
 
@@ -101,6 +104,47 @@ catch(Exception e){
 
 return null;
 
+}
+public JSONObject getPollutantData(){
+    
+    if(locationData.toString().equals("{}")){
+        locationData= getLocationData(locationName);
+    }
+        double latitude=(double)locationData.get("latitude");
+        double longitude=(double)locationData.get("longitude");
+    
+        String apiKey="7d888618e8c1a5f4afaead050a345b88";
+    
+        String apiUrl = "http://api.openweathermap.org/data/2.5/air_pollution?lat="+latitude+"&lon="+longitude+"&appid="+apiKey;
+        
+        try{
+            HttpURLConnection conn=fetchAPIResponse(apiUrl);
+            
+            if(conn.getResponseCode() != 200){
+                System.out.println("Error: Could not connect to API");
+                return null;
+            }
+        
+            StringBuilder resultJson = new StringBuilder();
+            Scanner scanner = new Scanner(conn.getInputStream());
+                    while(scanner.hasNext()){
+                        resultJson.append(scanner.nextLine());
+                    }
+        
+                    scanner.close();
+        
+                    conn.disconnect();
+            JSONParser parser = new JSONParser();
+            JSONObject resultJsonObj = (JSONObject) parser.parse(String.valueOf(resultJson));
+        
+        
+             return resultJsonObj;
+        }
+        catch(Exception e){
+             e.printStackTrace();
+        }
+        
+        return null;
 }
 @SuppressWarnings("unchecked")
 public JSONObject getFiveDayForecast() {
@@ -259,10 +303,6 @@ public double getFeelsLikeTemperature() {
     return (double)mainObject.get("feels_like");
 }
 
-
-
-
-
 public JSONObject getLocationData(String locationName){
     locationName=locationName.replaceAll(" ","+");
 String urlString="https://geocoding-api.open-meteo.com/v1/search?name="+ locationName + "&count=10&language=en&format=json";
@@ -298,6 +338,34 @@ String urlString="https://geocoding-api.open-meteo.com/v1/search?name="+ locatio
 return null;
 
 }
+
+public JSONObject getComponentGasses(){
+
+    if(pollutantData.toString().equals("{}")){
+        pollutantData=getPollutantData();
+    }
+
+    JSONArray list =(JSONArray) pollutantData.get("list");
+    JSONObject data=(JSONObject) list.get(0);
+    JSONObject components=(JSONObject) data.get("components");
+
+    return components;
+}
+
+public long getAQI(){
+
+    if(pollutantData.toString().equals("{}")){
+        pollutantData=getPollutantData();
+    }
+
+    JSONArray listArray =(JSONArray) pollutantData.get("list");
+    JSONObject firstItem =(JSONObject) listArray.get(0);
+    JSONObject mainObject =(JSONObject) firstItem.get("main");
+    long aqi =(long) mainObject.get("aqi");
+
+    return aqi;
+}
+
 private static HttpURLConnection fetchAPIResponse(String urlString){
         try{
             URL url = new URL(urlString);
@@ -319,9 +387,7 @@ private static HttpURLConnection fetchAPIResponse(String urlString){
         System.out.println( "Enter Your City Name: " );
         String locationName = scanner.nextLine();
         API myApp=new API(locationName);
-        System.out.println(myApp.getSunriseTime());
-
-        scanner.close();
+        System.out.println(myApp.getAQI());
     }
 
 }
