@@ -148,8 +148,8 @@ public JSONObject getPollutantData(){
 }
 @SuppressWarnings("unchecked")
 public JSONObject getFiveDayForecast() {
-    if(weatherData.toString().equals("{}")){
-        weatherData=getWeatherData();
+    if(weatherData.toString().equals("{}")) {
+        weatherData = getWeatherData();
     }
 
     JSONObject forecastData = new JSONObject();
@@ -157,29 +157,33 @@ public JSONObject getFiveDayForecast() {
 
     JSONArray list = (JSONArray) weatherData.get("list");
 
-    for (int i = 0; i < list.size(); i += 8) {
+    for (int i = 1; i < list.size(); i += 8) {
         JSONObject fiveDayData = (JSONObject) list.get(i);
 
         String date = (String) fiveDayData.get("dt_txt").toString().substring(0, 10);
 
         JSONObject main = (JSONObject) fiveDayData.get("main");
-        double temperature = (double) main.get("temp");
-        temperature=(temperature-273);
 
-        long humidity = (long) main.get("humidity");
+        double tempMin = (double) main.get("temp_min");
+        tempMin = (tempMin - 273);
 
-        double feelsLike = (double) main.get("feels_like");
+        double tempMax = (double) main.get("temp_max");
+        tempMax = (tempMax - 273);
+
+        JSONArray weatherArray = (JSONArray) fiveDayData.get("weather");
+        JSONObject weatherObject = (JSONObject) weatherArray.get(0);
+        String weatherDescription = (String) weatherObject.get("description");
 
         JSONObject dayForecast = new JSONObject();
         dayForecast.put("date", date);
-        dayForecast.put("temperature", temperature);
-        dayForecast.put("humidity", humidity);
-        dayForecast.put("feels_like", feelsLike);
+        dayForecast.put("temp_min", tempMin);
+        dayForecast.put("temp_max", tempMax);
+        dayForecast.put("weather_description", weatherDescription);
 
-      forecastList.add(dayForecast);
+        forecastList.add(dayForecast);
     }
 
-  forecastData.put("forecast", forecastList);
+    forecastData.put("forecast", forecastList);
 
     return forecastData;
 }
