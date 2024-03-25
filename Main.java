@@ -3,17 +3,13 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
-
 public class Main extends JFrame {
-
     private final JFXPanel jfxPanel = new JFXPanel();
     private WebEngine engine;
-
     String url = "file:///C:/Users/faraz/Desktop/WEATHER%20APP/Geocoding/src/map.html"; // Adjust the file path accordingly
 
     public Main() {

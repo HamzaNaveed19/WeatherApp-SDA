@@ -8,7 +8,8 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: lahore,
-        zoom: 12 // Zoom level adjusted for better visibility
+        zoom: 12,
+        disableDefaultUI: true // Disable default UI including zoom control
     });
 
     marker = new google.maps.Marker({
@@ -35,27 +36,27 @@ function initMap() {
 
         // Center map on the selected place
         map.panTo(place.geometry.location);
-        map.setZoom(15); // Adjust zoom level as needed
 
         // Move marker to the selected place
         marker.setPosition(place.geometry.location);
 
-        // Update coordinates
-        updateCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
-        
         // Send coordinates to API
         sendCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
     });
 
     google.maps.event.addListener(marker, 'dragend', function() {
-        updateCoordinates(marker.getPosition().lat(), marker.getPosition().lng());
+        // Update coordinates
+        const position = marker.getPosition();
+        updateCoordinates(position.lat(), position.lng());
         
         // Send coordinates to API
-        sendCoordinates(marker.getPosition().lat(), marker.getPosition().lng());
+        sendCoordinates(position.lat(), position.lng());
     });
 
     google.maps.event.addListener(map, 'click', function(event) {
         marker.setPosition(event.latLng);
+
+        // Update coordinates
         updateCoordinates(event.latLng.lat(), event.latLng.lng());
         
         // Send coordinates to API
@@ -67,8 +68,8 @@ function initMap() {
 }
 
 function updateCoordinates(latitude, longitude) {
-    document.getElementById('latitude').textContent = 'Latitude: ' + latitude.toFixed(6);
-    document.getElementById('longitude').textContent = 'Longitude: ' + longitude.toFixed(6);
+    // Display latitude and longitude separated by comma in top left
+    document.getElementById('coordinates').textContent = latitude.toFixed(6) + ', ' + longitude.toFixed(6);
 }
 
 function sendCoordinates(latitude, longitude) {
@@ -77,8 +78,10 @@ function sendCoordinates(latitude, longitude) {
     .then(response => response.json())
     .then(data => {
         console.log('API response:', data);
-        // Update place name
-        document.getElementById('place-name').textContent = 'Place Name: ' + data.name;
+        // Extract city name
+        const cityName = data.name;
+        // Update city name
+        document.getElementById('place-name').textContent = ' ' + cityName;
     })
     .catch(error => {
         console.error('Error:', error);

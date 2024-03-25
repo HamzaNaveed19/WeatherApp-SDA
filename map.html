@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Coordinates</title>
+    <title>Get Place Name</title>
     <link rel="stylesheet" href="map.css">
     <!-- Include Google Maps API script with Places library -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_uBuVNFEUfdm2VPXm2gzqYAoJYJH_zg&libraries=places&callback=initMap" async defer></script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_uBuVNFEUfdm2VPXm2gzqYAoJYJH_zg&libraries=places&callback=initMap" async defer></script>
 </head>
 <body>
     <div id="map"></div>
@@ -14,14 +14,14 @@
     <div id="search-box">
         <input id="search" type="text" placeholder="Search for a place">
     </div>
-    <div class="coordinates">
-        <h2>Coordinates</h2>
-        <p id="latitude">Latitude: </p>
-        <p id="longitude">Longitude: </p>
-        <h2>Place Name</h2>
-        <p id="place-name"></p> <!-- This is the added paragraph element for place name -->
-    </div>
-
+    <!-- Display place name -->
+    <div id="place-info" class="white-box">
+        <p id="place-name"></p>
+    </div id="box">
+    <!-- Display coordinates in top left -->
+    <div>
+    <div id="coordinates" class="top-left"></div>
+</div>
     <script src="map.js"></script>
 </body>
 </html>
