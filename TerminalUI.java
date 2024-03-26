@@ -1,66 +1,131 @@
+import java.util.Scanner;
+
 public class TerminalUI implements AbstractUI {
+    private Scanner scanner;
 
-    // Dummy data
-    private static final int TEMP = 25;
-    private static final String TEMP1 = "DB WILL GIVE DATA";
-    private static final Double TEMP2 = 0.0;
+    public TerminalUI() {
+        this.scanner = new Scanner(System.in);
+    }
+    @Override
+    public String getLocation() {
+        System.out.println("Please enter your location:");
+        return scanner.nextLine();
+    }
+    @Override
+    public void start() throws Exception {
+        displayWeatherAppHeader(); // Display the "Weather Application" block
+        String location = getLocation();
+        System.out.println("You entered location: " + location);
+    }
 
-    // Main method
-    public static void main(String[] args) {
-        TerminalUI UI = new TerminalUI();
-        UI.displayInUI("Max Temperature", String.valueOf(TEMP));
-        UI.displayInUI("Min Temperature", String.valueOf(TEMP));
-        UI.displayInUI("Humidity", String.valueOf(TEMP));
-        UI.displayInUI("Feels Like", String.valueOf(TEMP));
-        UI.displayInUI("Current Description", TEMP1);
-        UI.displayInUI("Sunrise Time", TEMP1);
-        UI.displayInUI("Sunset Time", TEMP1);
-        UI.displayInUI("Current Location Date", TEMP1);
-        UI.displayInUI("3 Hourly Temp 1", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 2", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 3", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 4", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 5", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 6", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 7", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Temp 8", String.valueOf(TEMP));
-        UI.displayInUI("3 Hourly Time 1", TEMP1);
-        UI.displayInUI("3 Hourly Time 2", TEMP1);
-        UI.displayInUI("3 Hourly Time 3", TEMP1);
-        UI.displayInUI("3 Hourly Time 4", TEMP1);
-        UI.displayInUI("3 Hourly Time 5", TEMP1);
-        UI.displayInUI("3 Hourly Time 6", TEMP1);
-        UI.displayInUI("3 Hourly Time 7", TEMP1);
-        UI.displayInUI("3 Hourly Time 8", TEMP1);
-        UI.displayInUI("Day 1 Max Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 2 Max Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 3 Max Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 4 Max Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 5 Max Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 1 Min Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 2 Min Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 3 Min Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 4 Min Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 5 Min Temp", String.valueOf(TEMP));
-        UI.displayInUI("Day 1 Description", TEMP1);
-        UI.displayInUI("Day 2 Description", TEMP1);
-        UI.displayInUI("Day 3 Description", TEMP1);
-        UI.displayInUI("Day 4 Description", TEMP1);
-        UI.displayInUI("Day 5 Description", TEMP1);
-        UI.displayInUI("Day 1 Date", TEMP1);
-        UI.displayInUI("Day 2 Date", TEMP1);
-        UI.displayInUI("Day 3 Date", TEMP1);
-        UI.displayInUI("Day 4 Date", TEMP1);
-        UI.displayInUI("Day 5 Date", TEMP1);
-        UI.displayInUI("SO2 Level", String.valueOf(TEMP2));
-        UI.displayInUI("NO2 Level", String.valueOf(TEMP2));
-        UI.displayInUI("O3 Level", String.valueOf(TEMP2));
-        UI.displayInUI("CO Level", String.valueOf(TEMP2));
-        UI.displayInUI("NO Level", String.valueOf(TEMP2));
-        UI.displayInUI("NH3 Level", String.valueOf(TEMP2));
-        UI.displayInUI("PM10 Level", String.valueOf(TEMP2));
-        UI.displayInUI("PM2.5 Level", String.valueOf(TEMP2));
-        UI.displayInUI("Air Quality Index", String.valueOf(TEMP));
+    @Override
+    public void displayAirQualityIndex(int temp) {
+        System.out.println("Air Quality Index: " + temp);
+    }
+
+    @Override
+    public void displayMinMaxTemp(int temp1, int temp2) {
+        System.out.println("Min Temperature: " + temp1 + "°C, Max Temperature: " + temp2 + "°C");
+    }
+
+    @Override
+    public void displayHumidity(int temp) {
+        System.out.println("Humidity: " + temp + "%");
+    }
+
+    @Override
+    public void displayFeelsLike(int temp) {
+        System.out.println("Feels Like: " + temp + "°C");
+    }
+
+    @Override
+    public void displayCurrentDescription(String temp) {
+        System.out.println("Current Description: " + temp);
+    }
+
+    @Override
+    public void displaySunRiseTime(String temp) {
+        System.out.println("Sunrise Time: " + temp);
+    }
+
+    @Override
+    public void displaySunSetTime(String temp) {
+        System.out.println("Sunset Time: " + temp);
+    }
+
+    @Override
+    public void displayCurrentLocationDate(String temp) {
+        System.out.println("Current Location Date: " + temp);
+    }
+
+    @Override
+    public void displayH3Temp(int[] temp) {
+        System.out.println("H3 Temp 8: " + temp + "°C");
+    }
+
+    @Override
+    public void displayH3Time(String[] temp) {
+        System.out.println("H3 Time 1: " + temp);
+    }
+
+    @Override
+    public void displayDMaxTemp(int[] temp) {
+        System.out.println("Day 1 Max Temperature: " + temp + "°C");
+    }
+
+    @Override
+    public void displayDMinTemp(int[] temp) {
+        System.out.println("Day 1 Min Temperature: " + temp + "°C");
+    }
+
+    @Override
+    public void displayDDescription(String[] temp) {
+        System.out.println("Day 1 Description: " + temp);
+    }
+
+    @Override
+    public void displayDDates(String[] dates) {
+        System.out.println("Day 1 Date: " + dates);
+    }
+
+    @Override
+    public void displaySO2(Double temp) {
+        System.out.println("SO2: " + temp);
+    }
+
+    @Override
+    public void displayNO2(Double temp) {
+        System.out.println("NO2: " + temp);
+    }
+
+    @Override
+    public void displayO3(Double temp) {
+        System.out.println("O3: " + temp);
+    }
+
+    @Override
+    public void displayCO(Double temp) {
+        System.out.println("CO: " + temp);
+    }
+
+    @Override
+    public void displayNO(Double temp) {
+        System.out.println("NO: " + temp);
+    }
+
+    @Override
+    public void displayNH3(Double temp) {
+        System.out.println("NH3: " + temp);
+    }
+
+    @Override
+    public void displayPM10(Double temp) {
+        System.out.println("PM10: " + temp);
+    }
+
+    @Override
+    public void displayPM2_5(Double temp) {
+        System.out.println("PM2.5: " + temp);
     }
 
     // Method to display data within a UI
@@ -72,274 +137,48 @@ public class TerminalUI implements AbstractUI {
         UI.append("-").append("-".repeat(Math.max(0, length))).append("-");
         System.out.println(UI.toString());
     }
- // Current weather temperatures
- @Override
- public void displayMaxTemp(int temp) {
-     System.out.println("Max Temperature: " + temp);
- }
 
- @Override
- public void displayMinTemp(int temp) {
-     System.out.println("Min Temperature: " + temp);
- }
+    // Method to display the "Weather Application" in a block with dashed lines
+    public void displayWeatherAppHeader() {
+        int length = "Weather Application".length() + 6;
+        StringBuilder header = new StringBuilder();
+        header.append("-").append("-".repeat(Math.max(0, length))).append("-\n");
+        header.append("| ").append("Weather Application").append(" |\n");
+        header.append("-").append("-".repeat(Math.max(0, length))).append("-");
+        System.out.println(header.toString());
+    }
 
- @Override
- public void displayHumidity(int temp) {
-     System.out.println("Humidity: " + temp);
- }
-
- @Override
- public void displayFeelsLike(int temp) {
-     System.out.println("Feels Like: " + temp);
- }
-
- @Override
- public void displayCurrentDescription(String temp) {
-     // Display the current description
-     System.out.println("Current Description: " + temp);
- }
-
- @Override
- public void displaySunRiseTime(String temp) {
-     System.out.println("Sunrise Time: " + temp);
- }
-
- @Override
- public void displaySunSetTime(String temp) {
-     System.out.println("Sunset Time: " + temp);
- }
-
- @Override
- public void displayCurrentLocationDate(String temp) {
-     System.out.println("Current Location Date: " + temp);
- }
-
- // 3 hourly temp stamp 
- @Override
- public void displayH3Temp1(int temp) {
-     System.out.println("3 Hourly Temp 1: " + temp);
- }
-
- @Override
- public void displayH3Temp2(int temp) {
-     System.out.println("3 Hourly Temp 2: " + temp);
- }
-
- @Override
- public void displayH3Temp3(int temp) {
-     System.out.println("3 Hourly Temp 3: " + temp);
- }
-
- @Override
- public void displayH3Temp4(int temp) {
-     System.out.println("3 Hourly Temp 4: " + temp);
- }
-
- @Override
- public void displayH3Temp5(int temp) {
-     System.out.println("3 Hourly Temp 5: " + temp);
- }
-
- @Override
- public void displayH3Temp6(int temp) {
-     System.out.println("3 Hourly Temp 6: " + temp);
- }
-
- @Override
- public void displayH3Temp7(int temp) {
-     System.out.println("3 Hourly Temp 7: " + temp);
- }
-
- @Override
- public void displayH3Temp8(int temp) {
-     System.out.println("3 Hourly Temp 8: " + temp);
- }
-
- @Override
- public void displayH3Time1(String temp) {
-     System.out.println("3 Hourly Time 1: " + temp);
- }
-
- @Override
- public void displayH3Time2(String temp) {
-     System.out.println("3 Hourly Time 2: " + temp);
- }
-
- @Override
- public void displayH3Time3(String temp) {
-     System.out.println("3 Hourly Time 3: " + temp);
- }
-
- @Override
- public void displayH3Time4(String temp) {
-     System.out.println("3 Hourly Time 4: " + temp);
- }
-
- @Override
- public void displayH3Time5(String temp) {
-     System.out.println("3 Hourly Time 5: " + temp);
- }
-
- @Override
- public void displayH3Time6(String temp) {
-     System.out.println("3 Hourly Time 6: " + temp);
- }
-
- @Override
- public void displayH3Time7(String temp) {
-     System.out.println("3 Hourly Time 7: " + temp);
- }
-
- @Override
- public void displayH3Time8(String temp) {
-     System.out.println("3 Hourly Time 8: " + temp);
- }
-
- // 5 days forecast
- @Override
- public void displayD1MaxTemp(int temp) {
-     System.out.println("Day 1 Max Temp: " + temp);
- }
-
- @Override
- public void displayD2MaxTemp(int temp) {
-     System.out.println("Day 2 Max Temp: " + temp);
- }
-
-     // 5 days forecast
-     @Override
-     public void displayD3MaxTemp(int temp) {
-         System.out.println("Day 3 Max Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD4MaxTemp(int temp) {
-         System.out.println("Day 4 Max Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD5MaxTemp(int temp) {
-         System.out.println("Day 5 Max Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD1MinTemp(int temp) {
-         System.out.println("Day 1 Min Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD2MinTemp(int temp) {
-         System.out.println("Day 2 Min Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD3MinTemp(int temp) {
-         System.out.println("Day 3 Min Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD4MinTemp(int temp) {
-         System.out.println("Day 4 Min Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD5MinTemp(int temp) {
-         System.out.println("Day 5 Min Temp: " + temp);
-     }
- 
-     @Override
-     public void displayD1Description(String temp) {
-         System.out.println("Day 1 Description: " + temp);
-     }
- 
-     @Override
-     public void displayD2Description(String temp) {
-         System.out.println("Day 2 Description: " + temp);
-     }
- 
-     @Override
-     public void displayD3Description(String temp) {
-         System.out.println("Day 3 Description: " + temp);
-     }
- 
-     @Override
-     public void displayD4Description(String temp) {
-         System.out.println("Day 4 Description: " + temp);
-     }
- 
-     @Override
-     public void displayD5Description(String temp) {
-         System.out.println("Day 5 Description: " + temp);
-     }
- 
-     @Override
-     public void displayD1Date(String temp) {
-         System.out.println("Day 1 Date: " + temp);
-     }
- 
-     @Override
-     public void displayD2Date(String temp) {
-         System.out.println("Day 2 Date: " + temp);
-     }
- 
-     @Override
-     public void displayD3Date(String temp) {
-         System.out.println("Day 3 Date: " + temp);
-     }
- 
-     @Override
-     public void displayD4Date(String temp) {
-         System.out.println("Day 4 Date: " + temp);
-     }
- 
-     @Override
-     public void displayD5Date(String temp) {
-         System.out.println("Day 5 Date: " + temp);
-     }
- 
-     // Polluting Gases
-     @Override
-     public void displaySO2(Double temp) {
-         System.out.println("SO2 Level: " + temp);
-     }
- 
-     @Override
-     public void displayNO2(Double temp) {
-         System.out.println("NO2 Level: " + temp);
-     }
- 
-     @Override
-     public void displayO3(Double temp) {
-         System.out.println("O3 Level: " + temp);
-     }
- 
-     @Override
-     public void displayCO(Double temp) {
-         System.out.println("CO Level: " + temp);
-     }
- 
-     @Override
-     public void displayNO(Double temp) {
-         System.out.println("NO Level: " + temp);
-     }
- 
-     @Override
-     public void displayNH3(Double temp) {
-         System.out.println("NH3 Level: " + temp);
-     }
- 
-     @Override
-     public void displayPM10(Double temp) {
-         System.out.println("PM10 Level: " + temp);
-     }
- 
-     @Override
-     public void displayPM2_5(Double temp) {
-         System.out.println("PM2.5 Level: " + temp);
-     }
- 
-     @Override
-     public void displayAirQualityIndex(int temp) {
-         System.out.println("Air Quality Index: " + temp);
-     }
-}
+    // Main function to test the functionality
+    public static void main(String[] args) {
+        TerminalUI terminalUI = new TerminalUI();
+        try {
+            terminalUI.start();
+    
+            // Call other functions to demonstrate functionality
+            terminalUI.displayAirQualityIndex(75);
+            terminalUI.displayMinMaxTemp(10, 20);
+            terminalUI.displayHumidity(60);
+            terminalUI.displayFeelsLike(18);
+            terminalUI.displayCurrentDescription("Sunny");
+            terminalUI.displaySunRiseTime("06:30 AM");
+            terminalUI.displaySunSetTime("07:00 PM");
+            terminalUI.displayCurrentLocationDate("March 26, 2024");
+            terminalUI.displayH3Temp(new int[]{15, 16, 14});
+            terminalUI.displayH3Time(new String[]{"09:00 AM", "12:00 PM", "03:00 PM"});
+            terminalUI.displayDMaxTemp(new int[]{20, 22, 23});
+            terminalUI.displayDMinTemp(new int[]{10, 12, 13});
+            terminalUI.displayDDescription(new String[]{"Sunny", "Partly Cloudy", "Cloudy"});
+            terminalUI.displayDDates(new String[]{"March 27, 2024", "March 28, 2024", "March 29, 2024"});
+            terminalUI.displaySO2(5.0);
+            terminalUI.displayNO2(10.0);
+            terminalUI.displayO3(3.0);
+            terminalUI.displayCO(2.0);
+            terminalUI.displayNO(1.0);
+            terminalUI.displayNH3(0.5);
+            terminalUI.displayPM10(25.0);
+            terminalUI.displayPM2_5(15.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}    
