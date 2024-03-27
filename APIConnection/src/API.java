@@ -265,33 +265,49 @@ public double getMaximumTemperature() {
     return (int)(temperature-273);
 }
 public LocalDateTime getSunriseTime() {
-    
-    
+    if (locationData.toString().equals("{}")) {
+        locationData = getLocationData(locationName);
+    }
     if(currWeatherData.toString().equals("{}")){
         currWeatherData=getCurrWeatherData();
     }
+    
 
-           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
-            long sunsetUnixTimestamp =(long) sysObject.get("sunrise");
-            
-            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
-            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
+    JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
+    long sunriseUnixTimestamp = (long) sysObject.get("sunrise");
 
+    // Get timezone information from the API response
+    String timeZoneId = (String) locationData.get("timezone");
+
+    // Convert Unix timestamp to LocalDateTime in the specified timezone
+    Instant instant = Instant.ofEpochSecond(sunriseUnixTimestamp);
+    LocalDateTime sunriseDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
+    ZoneId zoneId = ZoneId.of(timeZoneId);
+    LocalDateTime localDateTime = sunriseDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(zoneId).toLocalDateTime();
+    return localDateTime;
 }
 
 public LocalDateTime getSunsetTime() {
-    
-    
+    if (locationData.toString().equals("{}")) {
+        locationData = getLocationData(locationName);
+    }
     if(currWeatherData.toString().equals("{}")){
         currWeatherData=getCurrWeatherData();
     }
+    
 
-           JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
-            long sunsetUnixTimestamp =(long) sysObject.get("sunset");
-            
-            Instant instant = Instant.ofEpochSecond(sunsetUnixTimestamp);
-            return LocalDateTime.ofInstant (instant, ZoneOffset.UTC);
+    JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
+    long sunriseUnixTimestamp = (long) sysObject.get("sunset");
 
+    // Get timezone information from the API response
+    String timeZoneId = (String) locationData.get("timezone");
+
+    // Convert Unix timestamp to LocalDateTime in the specified timezone
+    Instant instant = Instant.ofEpochSecond(sunriseUnixTimestamp);
+    LocalDateTime sunriseDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
+    ZoneId zoneId = ZoneId.of(timeZoneId);
+    LocalDateTime localDateTime = sunriseDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(zoneId).toLocalDateTime();
+    return localDateTime;
 }
 
 public String getWeatherDescription() {
@@ -391,7 +407,7 @@ private static HttpURLConnection fetchAPIResponse(String urlString){
         System.out.println( "Enter Your City Name: " );
         String locationName = scanner.nextLine();
         API myApp=new API(locationName);
-        System.out.println(myApp.getAQI());
+        System.out.println(myApp.getSunsetTime());
     }
 
 }
