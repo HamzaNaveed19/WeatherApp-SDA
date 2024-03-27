@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Place Name</title>
     <link rel="stylesheet" href="map.css">
-    <!-- Include Google Maps API script with Places library -->
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_uBuVNFEUfdm2VPXm2gzqYAoJYJH_zg&libraries=places&callback=initMap" async defer></script>
+    <!-- Load Google Maps JavaScript API asynchronously -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq_uBuVNFEUfdm2VPXm2gzqYAoJYJH_zg&libraries=places&callback=initMap"></script>
 </head>
 <body>
     <div id="map"></div>
@@ -17,11 +18,11 @@
     <!-- Display place name -->
     <div id="place-info" class="white-box">
         <p id="place-name"></p>
-    </div id="box">
+    </div>
     <!-- Display coordinates in top left -->
     <div>
-    <div id="coordinates" class="top-left"></div>
-</div>
+        <div id="coordinates" class="top-left"></div>
+    </div>
     <script src="map.js"></script>
 </body>
 </html>

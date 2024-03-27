@@ -1,3 +1,5 @@
+import javafx.concurrent.Worker;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -6,7 +8,7 @@ import javafx.scene.web.WebView;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.URL;
+
 public class Main extends JFrame {
     private final JFXPanel jfxPanel = new JFXPanel();
     private WebEngine engine;
@@ -34,8 +36,21 @@ public class Main extends JFrame {
                 engine.load(url);
                 Scene scene = new Scene(view);
                 jfxPanel.setScene(scene);
+
+                // Call sendCoordinates when the WebView is loaded
+                engine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue == Worker.State.SUCCEEDED) {
+                        // WebView is loaded, call sendCoordinates
+                        sendCoordinates();
+                    }
+                });
             }
         });
+    }
+
+    private void sendCoordinates() {
+        // Call JavaScript function sendCoordinates
+        engine.executeScript("sendCoordinates()");
     }
 
     public static void main(String[] args) {
