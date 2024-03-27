@@ -1,15 +1,12 @@
 import java.sql.*;
-import java.util.Scanner;
-
+import java.time.LocalDate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import com.mysql.cj.xdevapi.JsonArray;
-import org.json.simple.parser.JSONParser;
 
-public class Database {
+public class Database implements AbstractDB{
     private static Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/FiveDayForecast", "root", "hamza_7871");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/FiveDayForecast", "root", "ahad123");
     }
 
     private static boolean cityExists(String city, Connection con) throws SQLException {
@@ -32,38 +29,32 @@ public class Database {
             pstmt.executeUpdate();
         }
     }
-
-    public static void storeFiveDayData(String city, JSONObject fiveDayForecast) {
-        try (Connection con = getConnection()) { // Assumes getConnection() provides a valid database connection
-            // Check if the city exists in the City table
+    @Override
+    public void storeFiveDayData(String city, JSONObject fiveDayForecast) {
+        try (Connection con = getConnection()) { 
+            checkAndCleanDatabase();
             if (!cityExists(city, con)) {
-                // If the city does not exist, handle this case
-                System.out.println("City does not exist in the database.");
-                return;
+                insertCity(city, con);
             }
     
             JSONArray forecastArray = (JSONArray) fiveDayForecast.get("forecast");
     
-            // Prepare the SQL statement for inserting five-day forecast data
             String insertSql = "INSERT INTO weatherforecasts (City, ForecastDate, MAX_TEMP, MIN_TEMP, Weather_Description) VALUES (?, ?, ?, ?, ?)";
             
             try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
                 for (int i = 0; i < forecastArray.size(); i++) {
                     JSONObject forecast = (JSONObject) forecastArray.get(i);
-                    // Extracting forecast data for each day
                     String date = (String) forecast.get("date");
                     double tempMax = (Double) forecast.get("temp_max");
                     double tempMin = (Double) forecast.get("temp_min");
                     String weatherDescription = (String) forecast.get("weather_description");
     
-                    // Set the parameters for the prepared statement
                     pstmt.setString(1, city);
                     pstmt.setString(2, date);
                     pstmt.setDouble(3, tempMax);
                     pstmt.setDouble(4, tempMin);
                     pstmt.setString(5, weatherDescription);
     
-                    // Execute the insert statement
                     pstmt.executeUpdate();
                 }
             }
@@ -71,16 +62,23 @@ public class Database {
             e.printStackTrace();
         }
     }
-    public static JSONArray getFiveDaysData(String city) {
-        JSONArray forecastsArray = new JSONArray(); // Use org.json.simple.JSONArray
+    @Override
+    public JSONArray getFiveDaysData(String city) {
+        JSONArray forecastsArray = new JSONArray(); 
         try (Connection con = getConnection()) {
+            checkAndCleanDatabase();
+            if (!cityExists(city, con)) {
+                
+                System.out.println("City does not exist in the database.");
+                return forecastsArray;
+            }
             String sql = "SELECT City, ForecastDate, MAX_TEMP, MIN_TEMP, Weather_Description FROM WeatherForecasts WHERE City = ?";
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-                pstmt.setString(1, city); // Set the city parameter
+                pstmt.setString(1, city); 
                 
                 try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
-                        JSONObject forecastObject = new JSONObject(); // Use org.json.simple.JSONObject
+                        JSONObject forecastObject = new JSONObject(); 
                         forecastObject.put("City", rs.getString("City"));
                         forecastObject.put("ForecastDate", rs.getString("ForecastDate"));
                         forecastObject.put("MaxTemp", rs.getDouble("MAX_TEMP"));
@@ -92,37 +90,31 @@ public class Database {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // Optionally, handle errors by adding a JSONObject to the array or handle differently
             JSONObject errorObject = new JSONObject();
             errorObject.put("error", e.getMessage());
-            forecastsArray.add(errorObject); // Add the error information to the array
+            forecastsArray.add(errorObject); 
         }
-        return forecastsArray; // Return the JSONArray directly
+        return forecastsArray; 
     }
-    public static void storeThreeHourly(String city, JSONObject threeHourly) {
+    @Override
+    public  void storeThreeHourly(String city, JSONObject threeHourly) {
       
         try (Connection con = getConnection()) {
-            // Check if the city exists in the City table
             if (!cityExists(city, con)) {
-                // If the city does not exist, insert it into the City table
                 insertCity(city, con);
             }
             JSONArray forecastArray = (JSONArray) threeHourly.get("forecast");
             
-            // Prepare the SQL statement for inserting forecast data
             String insertSql = "INSERT INTO HourlyForecasts (City, Date_Time, Temperature) VALUES (?, ?, ?)";
             try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
                 for (int i = 0; i < forecastArray.size(); i++) {
                     JSONObject jsonObject = (JSONObject) forecastArray.get(i);
-                    // Assuming the forecast object contains keys "date_time" and "temperature"
                     String dateTime = (String) jsonObject.get("date_time"); // Correctly casted to String
                     double temperature = (Double) jsonObject.get("temperature"); // Correctly casted to Double
                     
                     pstmt.setString(1, city);
                     pstmt.setString(2, dateTime);
                     pstmt.setDouble(3, temperature);
-                    
-                    // Execute the insert statement
                     pstmt.executeUpdate();
                 }
             }
@@ -130,21 +122,22 @@ public class Database {
             e.printStackTrace();
         }
      }
-     public static JSONArray getThreeHourlyData(String city) {
+     @Override
+     public  JSONArray getThreeHourlyData(String city) {
         JSONArray forecastArray = new JSONArray();
-        
-        // SQL query to select forecast data for a specific city
+       
         String selectSql = "SELECT Date_Time, Temperature FROM HourlyForecasts WHERE City = ?";
         
         try (Connection con = getConnection();
              PreparedStatement pstmt = con.prepareStatement(selectSql)) {
-            
-            // Set the city parameter in the SQL query
+                if (!cityExists(city, con)) {
+                    System.out.println("City does not exist in the database.");
+                    return forecastArray;
+                }
             pstmt.setString(1, city);
             
-            // Execute the query
             try (ResultSet rs = pstmt.executeQuery()) {
-                // Iterate over the result set and add each forecast to the forecastArray
+            
                 while (rs.next()) {
                     JSONObject forecast = new JSONObject();
                     forecast.put("date_time", rs.getString("Date_Time"));
@@ -158,13 +151,11 @@ public class Database {
         
         return forecastArray;
     }
-    public static void storeGasesComponent(String city, JSONObject gasesComp) {
-        try (Connection con = getConnection()) { // Assumes getConnection() provides a valid database connection
-            // Check if the city exists in the City table
+    @Override
+    public void storeGasesComponent(String city, JSONObject gasesComp) {
+        try (Connection con = getConnection()) { 
             if (!cityExists(city, con)) {
-                // If the city does not exist, handle appropriately
-                System.out.println("City does not exist in the database.");
-                return;
+                insertCity(city, con);
             }
     
             // Prepare the SQL statement for inserting air pollutants data
@@ -195,7 +186,8 @@ public class Database {
         }
         return 0.0;
     }
-    public static JSONArray getGasesComponent(String city) {
+    @Override
+    public JSONArray getGasesComponent(String city) {
         JSONArray gasesArray = new JSONArray();
         
         // SQL query to select air pollutants data for a specific city
@@ -206,7 +198,11 @@ public class Database {
             
             // Set the city parameter in the SQL query
             pstmt.setString(1, city);
-            
+            if (!cityExists(city, con)) {
+                // If the city does not exist, handle appropriately
+                System.out.println("City does not exist in the database.");
+                return gasesArray;
+            }
             // Execute the query
             try (ResultSet rs = pstmt.executeQuery()) {
                 // Iterate over the result set and add each set of gas components to the gasesArray
@@ -229,7 +225,8 @@ public class Database {
         
         return gasesArray;
     }
-    public static void storeAQIComponent(String city, long AQI) {
+    @Override
+    public  void storeAQIComponent(String city, long AQI) {
         // SQL statement to insert the AQI data
         String insertSql = "INSERT INTO AirQualityIndex (City, AQI) VALUES (?, ?)";
         
@@ -249,74 +246,98 @@ public class Database {
             System.out.println("Failed to store AQI data for " + city);
         }
     }
-    public static double getAQIForCity(String city) {
+    @Override
+    public  double getAQIForCity(String city) {
         // SQL query to select the AQI for a specific city
         String selectSql = "SELECT AQI FROM AirQualityIndex WHERE City = ?";
         
         try (Connection con = getConnection(); // Assumes getConnection() provides a valid database connection
              PreparedStatement pstmt = con.prepareStatement(selectSql)) {
-            
+                if (!cityExists(city, con)) {
+                    // If the city does not exist, handle appropriately
+                    System.out.println("City does not exist in the database.");
+                    return 0;
+                }
             // Set the city parameter in the SQL query
             pstmt.setString(1, city);
             
             // Execute the query
             try (ResultSet rs = pstmt.executeQuery()) {
-                // Check if the result set has at least one row
                 if (rs.next()) {
-                    return rs.getDouble("AQI"); // Return the AQI value for the city
-                } else {
+                    return rs.getDouble("AQI"); 
                     System.out.println("No AQI data found for " + city);
-                    return -1; // Indicate that no data was found
+                    return -1;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed to retrieve AQI data for " + city);
-            return -1; // Indicate an error
+            return -1;
         }
     }
+
+public static void checkAndCleanDatabase() throws SQLException, ClassNotFoundException {
+    try (Connection conn = getConnection();
+          Statement stmt = conn.createStatement()) {
+
+          conn.setAutoCommit(false);
     
-    public static void main(String[] args) {
-        String city = "Lahore"; // Replace "SampleCity" with the name of the city you want to query
+          ResultSet rs = stmt.executeQuery("SELECT savedDate FROM StoredDate LIMIT 1");
+          LocalDate currentDate = LocalDate.now();
+          if (rs.next()) {
+
+          java.sql.Date storedDate = rs.getObject("savedDate", java.sql.Date.class);
+
+
+                
         
-        // Assuming getGasesComponent is defined in the same class
-        JSONArray gasesComponents =getFiveDaysData(city);
-       // double AQi=getAQIForCity(city);
-        // Print the resulting JSONArray to the console
-        System.out.println(gasesComponents);
-    }
+                if (!storedDate.toLocalDate().equals(currentDate)) {
+            
+                    int deletedCityRows = stmt.executeUpdate("DELETE FROM City");
+                    System.out.println("Deleted rows from City table: " + deletedCityRows);
+                
+                 
+                    int deletedDateRows = stmt.executeUpdate("DELETE FROM StoredDate");
+                    System.out.println("Deleted rows from StoredDate table: " + deletedDateRows);
+                
+                    PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO StoredDate (savedDate) VALUES (?)");
+
+                    insertStmt.setDate(1, java.sql.Date.valueOf(currentDate));
+
+
+                   
+                    insertStmt.executeUpdate();
+                    System.out.println("Inserted current date into StoredDate table.");
+                } else {
+                    System.out.println("The dates match. No action taken.");
+                }
+                
+            } else {
+                System.out.println("No stored date found.");
+                
+                PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO StoredDate (savedDate) VALUES (?)");
+
+                insertStmt.setDate(1, java.sql.Date.valueOf(currentDate));
+
+                insertStmt.executeUpdate();
+                System.out.println("Inserted current date into StoredDate table.");
+            }
+            
+            conn.commit();
+            
+            conn.setAutoCommit(true);
+        } catch (SQLException | ClassNotFoundException e) {
+           
+            System.err.println("An error occurred, rolling back changes.");
+            try (Connection conn = getConnection()) {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error during rollback: " + ex.getMessage());
+            }
+            throw e; // Rethrow the exception after handling
+        }
 }
-    
-//     public static void main(String[] args) {
-//         // Example usage of storeFiveDayData
-//     //    storeFiveDayData("KARACHI", new Date(System.currentTimeMillis()), 30.00, 20.00, 25.00, "Sunny");
-//     //     String city = "Lahore";
-//  Scanner scanner = new Scanner(System.in);
 
-//         System.out.println("Enter the city name to get the three-hourly forecast data:");
-//         String city = scanner.nextLine();
-
-//         JSONArray threeHourlyForecast = getThreeHourlyData(city);
-
-//         if (threeHourlyForecast.isEmpty()) {
-//             System.out.println("No forecast data found for " + city + ".");
-//         } else {
-//             System.out.println("Three-hourly forecast data for " + city + ":");
-//             System.out.println(threeHourlyForecast.toJSONString());
-//         }
-
-//         scanner.close();
-        // // Call getFiveDaysData to fetch the weather forecast data for Springfield.
-        // // String forecastJson = getFiveDaysData(city);
-        // // double max_t=(double)forecastJson.get("MaxTemp");
-        // JSONArray forecastData = getFiveDaysData("Springfield");
-        // JSONObject first=(JSONObject)forecastData.get(0);
-        // Double max1 = (Double) first.get("MaxTemp");
-
-        // System.out.println(max1); // Print the JSON array as a string
-        // // Print the returned JSON string to the console.
-        // // System.out.println("Weather forecast data for " + city + ":");
-        // // System.out.println(forecastJson);
-    
-    
-
+}
