@@ -6,6 +6,11 @@ import java.io.InputStream;
 
 public class Notification {
 
+    public void displayTrayNotification(int airQualityIndex, String weatherDescription) {
+        displayAirQualityNotification(airQualityIndex);
+        displayWeatherNotification(weatherDescription);
+    }
+
     public void displayWeatherNotification(String weatherDescription) {
         if (isStormyWeather(weatherDescription)) {
             String title = "Weather Notification";
@@ -16,7 +21,7 @@ public class Notification {
     }
 
     public void displayAirQualityNotification(int airQualityIndex) {
-        if (airQualityIndex > 1) {
+        if (airQualityIndex > 3) {
             String title = "Air Quality Notification";
             String message = getMessageForAQI(airQualityIndex);
 
@@ -76,4 +81,5 @@ public class Notification {
         return weatherDescription != null &&
                 (weatherDescription.contains("thunderstorm") || weatherDescription.contains("rain") || weatherDescription.contains("snow"));
     }
+
 }

@@ -7,11 +7,13 @@ public class WeatherApp {
     private weatherData data;
     private AbstractDB db;
     private API api;
+    private Notification noti;
 
     public WeatherApp() {
-        ui = new TerminalUI();
+        ui = new JavaUI();
         db = new Database();
         data = new weatherData();
+        noti=new Notification();
     }
     
     public void callAPIFirst(String location) {
@@ -59,11 +61,18 @@ public class WeatherApp {
                 ui.userInputFromTextBox(userInput -> {
                     retrieve(userInput);
                     displayUIComponents();
+                    noti.displayTrayNotification(data.getAQI(),data.getWeatherDiscription());
+    
+                    System.out.println(data.getAQI());
 
                 });
                 ui.userInputFromMap(line -> {
                     retrieve(line);
                     displayUIComponents();
+                    noti.displayTrayNotification(data.getAQI(),data.getWeatherDiscription());
+
+                    System.out.println(data.getAQI());
+
 
                 });
 
@@ -74,6 +83,7 @@ public class WeatherApp {
     }
 
     public void displayUIComponents() {
+        //
         ui.displayCurrentTemp(data.getCurrentTemp());
         ui.displaySunSetTime(data.getSunSetTime());
         ui.displaySunRiseTime(data.getSunriseTime());
@@ -83,12 +93,16 @@ public class WeatherApp {
         ui.displayMinTemp(data.getCurrentMinTemp());
         ui.displayMaxTemp(data.getCurrentMaxTemp());
 
+        //
         ui.displayGases(data.getGasesData());
+
+        //
         ui.displayDDates(data.getFiveDayDates());
         ui.displayDDescription(data.getFiveDayDesc());
         ui.displayDMaxTemp(data.getFiveDayMaxTemp());
         ui.displayDMinTemp(data.getFiveDayMinTemp());
 
+        //
         ui.displayH3Temp(data.getThreeHourlyTemp());
         ui.displayH3Time(data.getThreeHourlyTimes());
     }
