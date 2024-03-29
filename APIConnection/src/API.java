@@ -150,6 +150,7 @@ public JSONObject getPollutantData(){
 public JSONObject getFiveDayForecast() {
     if(weatherData.toString().equals("{}")) {
         weatherData = getWeatherData();
+        
     }
 
     JSONObject forecastData = new JSONObject();
@@ -188,7 +189,7 @@ public JSONObject getFiveDayForecast() {
     return forecastData;
 }
 @SuppressWarnings("unchecked")
-public JSONObject getThreeHourlyForecast(String locationName) {
+public JSONObject getThreeHourlyForecast() {
     
     if(weatherData.toString().equals("{}")){
         weatherData=getWeatherData();
@@ -348,7 +349,12 @@ String urlString="https://geocoding-api.open-meteo.com/v1/search?name="+ locatio
              JSONObject resultsJsonObj = (JSONObject) parser.parse(String.valueOf(resultJson));
 
              JSONArray locationData = (JSONArray) resultsJsonObj.get("results");
+             if(locationData.size()>0){
              return (JSONObject)locationData.get(0);
+             }
+             else{
+                Exception e=new Exception("ERROR");
+                throw e;             }
 
 
           }
@@ -407,7 +413,13 @@ private static HttpURLConnection fetchAPIResponse(String urlString){
         System.out.println( "Enter Your City Name: " );
         String locationName = scanner.nextLine();
         API myApp=new API(locationName);
-        System.out.println(myApp.getSunsetTime());
-    }
+        try{
+            System.out.println(myApp.getThreeHourlyForecast());
 
+        }
+        catch(Exception e){
+            System.out.println("ERROR");
+        }
+
+    }
 }
