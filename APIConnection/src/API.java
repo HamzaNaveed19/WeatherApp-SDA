@@ -277,10 +277,8 @@ public LocalDateTime getSunriseTime() {
     JSONObject sysObject = (JSONObject) currWeatherData.get("sys");
     long sunriseUnixTimestamp = (long) sysObject.get("sunrise");
 
-    // Get timezone information from the API response
     String timeZoneId = (String) locationData.get("timezone");
 
-    // Convert Unix timestamp to LocalDateTime in the specified timezone
     Instant instant = Instant.ofEpochSecond(sunriseUnixTimestamp);
     LocalDateTime sunriseDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
     ZoneId zoneId = ZoneId.of(timeZoneId);
