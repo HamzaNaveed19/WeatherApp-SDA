@@ -82,6 +82,60 @@ function sendCoordinates(latitude, longitude) {
         const cityName = data.name;
         // Update city name
         document.getElementById('place-name').textContent = ' ' + cityName;
+        // Write city name to file
+        writeCityNameToFile(cityName);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle error if needed
+    });
+}
+// Add event listener for the Current Location button
+document.getElementById('current-location-btn').addEventListener('click', function() {
+    // Check if geolocation is supported
+    if (navigator.geolocation) {
+        // Get exact current location
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const currentLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            // Center map on exact current location
+            map.panTo(currentLocation);
+
+            // Move marker to exact current location
+            marker.setPosition(currentLocation);
+
+            // Send coordinates to API
+            sendCoordinates(currentLocation.lat, currentLocation.lng);
+        }, function(error) {
+            console.error('Error getting current location:', error);
+            // Handle error if needed
+        }, {
+            enableHighAccuracy: true // Request high accuracy for better results
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+        // Handle error if geolocation is not supported
+    }
+});
+
+// Function to write city name to file on the server
+function writeCityNameToFile(cityName) {
+    // Make HTTP POST request to server endpoint
+    fetch('http://localhost:3000/writeCityName', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cityName: cityName })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to write city name to file');
+        }
+        console.log('City name has been written to file successfully.');
     })
     .catch(error => {
         console.error('Error:', error);
