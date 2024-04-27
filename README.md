@@ -34,5 +34,5 @@ Install Node js(from Browser - also add Environment Variables), Express Js(npm i
 Goto Windows Firewall add A port "3000" in inbound rules.
 6. Files locations
 After setting all the project
-1. locate the "readMapLocation.java" file and add the path of "String filePath = "//path//to//value.txt";" according to your pc.
-2. locate the mainSceneController.java file and alter the path of " engine.load("file:///path//to//map.html");" acoording to your pc
+locate the "readMapLocation.java" file and add the path of "String filePath = "//path//to//value.txt";" according to your pc.
+locate the mainSceneController.java file and alter the path of " engine.load("file:///path//to//map.html");" acoording to your pc
