@@ -1,4 +1,9 @@
+
+
+
+import java.text.Normalizer;
 import java.util.function.Consumer;
+
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -7,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import modules.readMapLocation;
 
 public class JavaUI implements AbstractUI {
 
@@ -49,7 +53,7 @@ public class JavaUI implements AbstractUI {
         scene.getStylesheets().add(getClass().getResource("animation.css").toExternalForm());
 
         // Set the application icon
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("img/weather-app-icon.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/weather-app-icon.png")));
 
         // Settings
         primaryStage.setTitle("Weather App");
@@ -176,9 +180,11 @@ public class JavaUI implements AbstractUI {
 
         controller.searchButton.setOnAction(event -> {
             String userInput = controller.textfieldLocation.getText();
+            userInput = userInput.substring(0, 1).toUpperCase() + userInput.substring(1); // Capitalize first letter
             userInputHandler.accept(userInput);
             controller.locationLabel.setText(userInput);
             controller.textfieldLocation.setText("");
+            
         });
     }
 
@@ -188,10 +194,15 @@ public class JavaUI implements AbstractUI {
         controller.okButton.setOnAction(event -> {
 
             String line = readMapLocation.readFile();
-            System.out.println(line);
+            line = removeDiacritics(line);
             userInputHandler.accept(line);
             controller.locationLabel.setText(line);
         });
+    }
+
+    // Function to remove diacritics from a string
+    public static String removeDiacritics(String text) {
+        return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 
 }
