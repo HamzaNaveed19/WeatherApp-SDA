@@ -32,3 +32,7 @@ Navigate the Reference Libraries folder and add these jar files
 5. For Map.js
 Install Node js(from Browser - also add Environment Variables), Express Js(npm install express in cmd) , CORS(npm install CORS in cmd)
 Goto Windows Firewall add A port "3000" in inbound rules.
+6. Files locations
+After setting all the project
+locate the "readMapLocation.java" file and add the path of "String filePath = "//path//to//value.txt";" according to your pc.
+locate the mainSceneController.java file and alter the path of " engine.load("file:///path//to//map.html");" acoording to your pc
