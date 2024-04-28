@@ -1,0 +1,16 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\DB\\DB.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\FileHandler\\FileHandler.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\TerminalUI\\TerminalUI.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\JavaUI\\JavaUI.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\JAR\\DB.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\JAR\\FileHandler.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\JAR\\JavaUI.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\JAR\\TerminalUI.jar",
+        "c:\\Users\\tower\\OneDrive\\Desktop\\Fast-Nu\\JAR\\BL.jar"
+    ]
+}
