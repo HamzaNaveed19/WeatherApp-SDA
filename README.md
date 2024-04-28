@@ -23,7 +23,7 @@ Copy all the required JAR files, including:
 01 JAR file of the MySQL Connector/J
 Open your JavaFX project in Visual Studio Code.
 Navigate the Reference Libraries folder and add these jar files
-4. For SQL DataBase Connection:
+5. For SQL DataBase Connection:
   - Make sure to have MySQLWorkbench
   - RUN the schema from Weather.sql file in your ROOT Folder.
   - Make sure to change the connection string in Weather.java file.
@@ -36,3 +36,5 @@ Goto Windows Firewall add A port "3000" in inbound rules.
 After setting all the project
 locate the "readMapLocation.java" file and add the path of "String filePath = "//path//to//value.txt";" according to your pc.
 locate the mainSceneController.java file and alter the path of " engine.load("file:///path//to//map.html");" acoording to your pc
+7. Add Liberica jar
+Download Liberica JDK(Full) from this link "https://bell-sw.com/pages/downloads/" according to your OS environment
