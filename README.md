@@ -26,7 +26,7 @@ Navigate the Reference Libraries folder and add these jar files
 5. For SQL DataBase Connection:
   - Make sure to have MySQLWorkbench
   - RUN the schema from Weather.sql file in your ROOT Folder.
-  - Make sure to change the connection string in Weather.java file.
+  - Make sure to change the connection string in Database.java file.
   - Just Alter your Pasword if you have created the schema from Weather.sql file.
   - Your SQL setup completed.
 5. For Map.js
